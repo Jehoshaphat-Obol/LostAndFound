@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/foundmodels")
+@RequestMapping("/api/found")
 public class FoundModelController {
 
     private final FoundModelService foundModelService;
