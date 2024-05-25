@@ -21,14 +21,14 @@ public class FoundModelController {
     }
 
     //Endpoint to save a found model
-    @PostMapping("save")
+    @PostMapping
     public ResponseEntity<FoundModel> saveFoundModel(@RequestBody FoundModel foundModel){
         FoundModel savedFoundModel = foundModelService.saveFoundModel(foundModel);
         return new ResponseEntity<>(savedFoundModel, HttpStatus.CREATED);
     }
 
     //Endpoint to get a found all
-    @GetMapping("all")
+    @GetMapping
     public  ResponseEntity<List<FoundModel>> getFoundModelAll(){
         List<FoundModel> foundModels = foundModelService.getAllFoundModels();
         return new ResponseEntity<>(foundModels, HttpStatus.OK);
