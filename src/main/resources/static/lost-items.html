@@ -28,6 +28,7 @@
     <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
     <link href="assets/vendor/jquery.dataTables/jquery.dataTables.css" rel="stylesheet">
+    <link href="assets/vendor/jquery.dataTables/jquery.dataTables.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -189,23 +190,9 @@
 
                     <!-- Recent Sales -->
                     <div class="col-12">
-                        <div class="card recent-sales overflow-auto">
-
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
-
+                        <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+                                <h5 class="card-title">Lost Items</h5>
 
                                 <table class="table table-borderless" id="lostTable" style="width: 100%;">
                                     <thead>
@@ -223,11 +210,11 @@
                                 </table>
 
                             </div>
-
                         </div>
-                    </div><!-- End Recent Sales -->
+                    </div>
+                </div><!-- End Recent Sales -->
 
-                </div>
+            </div>
             </div>
         </section>
 
@@ -263,7 +250,8 @@
                     { "data": "lostLocation" },
                     { "data": "status" }
                 ]
-            })})
+            })
+        })
     </script>
 </body>
 
