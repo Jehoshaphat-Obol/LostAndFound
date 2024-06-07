@@ -68,6 +68,8 @@
                            name="lostDate" required>
                     <input type="text" class="form-control mb-3" placeholder="Location"
                            name="lostLocation" required>
+                    <input type="email" name="email" class="form-control mb-3" placeholder="Email" required/>
+                    <input type="text" name="phoneNumber" class="form-control mb-3" placeholder="Phone Number" required />
                     <div class="text-center">
                       <button class="btn btn-primary btn-center">Report</button>
                     </div>
@@ -115,7 +117,6 @@
                     type: "POST",
                     success: function(response){
                         console.log(response);
-                        foundTable.ajax.reload();
                     },
                     error: function(xhr, status, error){
                         console.log(error);
