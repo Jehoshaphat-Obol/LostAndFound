@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/reported-items")
+@RequestMapping("/api/reported")
 public class ReportedItemController {
 
     @Autowired
@@ -38,7 +38,7 @@ public class ReportedItemController {
         Optional<ReportedItem> optionalReportedItem = reportedItemService.getReportedItemById(id);
         if (optionalReportedItem.isPresent()) {
             ReportedItem reportedItem = optionalReportedItem.get();
-            reportedItem.setItemName(reportedItemDetails.getItemName());
+            reportedItem.setName(reportedItemDetails.getName());
             reportedItem.setDescription(reportedItemDetails.getDescription());
             reportedItem.setLostDate(reportedItemDetails.getLostDate());
             reportedItem.setLostLocation(reportedItemDetails.getLostLocation());
