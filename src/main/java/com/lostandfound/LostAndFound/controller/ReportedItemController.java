@@ -2,50 +2,64 @@ package com.lostandfound.LostAndFound.controller;
 
 import com.lostandfound.LostAndFound.model.ReportedItem;
 import com.lostandfound.LostAndFound.service.ReportedItemService;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
-@Controller
-@RequestMapping("/api/reported")
+@RestController
+@RequestMapping("/reported-items")
 public class ReportedItemController {
-    private final ReportedItemService reportedItemService;
 
-    public ReportedItemController(ReportedItemService reportedItemService) {
-        this.reportedItemService = reportedItemService;
-    }
+    @Autowired
+    private ReportedItemService reportedItemService;
 
-    @PostMapping
-    public ResponseEntity<ReportedItem> createReportedItem(@RequestBody ReportedItem reportedItem){
-        System.out.println(reportedItem);
-        ReportedItem newReportedItem = reportedItemService.createReportedItem(reportedItem);
-        return new ResponseEntity<>(newReportedItem, HttpStatus.CREATED);
+    @GetMapping
+    public List<ReportedItem> getAllReportedItems() {
+        return reportedItemService.getAllReportedItems();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReportedItem> getReportedItem(@PathVariable Long id){
-        ReportedItem reportedItem = reportedItemService.getReportedItem(id);
-        return new ResponseEntity<>(reportedItem, HttpStatus.OK);
+    public ResponseEntity<ReportedItem> getReportedItemById(@PathVariable Long id) {
+        Optional<ReportedItem> reportedItem = reportedItemService.getReportedItemById(id);
+        return reportedItem.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping
-    public ResponseEntity<List<ReportedItem>> getReportedItems(){
-        List<ReportedItem> reportedItems = reportedItemService.getAllReportedItems();
-        return new ResponseEntity<>(reportedItems, HttpStatus.OK);
+    @PostMapping
+    public ReportedItem createReportedItem(@RequestBody ReportedItem reportedItem) {
+        return reportedItemService.saveReportedItem(reportedItem);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReportedItem> updateReportedItem(@PathVariable Long id, @RequestBody ReportedItem reportedItem){
-        ReportedItem updatedReportedItem = reportedItemService.updateReportedItem(id, reportedItem);
-        return new ResponseEntity<>(updatedReportedItem, HttpStatus.OK);
+    public ResponseEntity<ReportedItem> updateReportedItem(@PathVariable Long id, @RequestBody ReportedItem reportedItemDetails) {
+        Optional<ReportedItem> optionalReportedItem = reportedItemService.getReportedItemById(id);
+        if (optionalReportedItem.isPresent()) {
+            ReportedItem reportedItem = optionalReportedItem.get();
+            reportedItem.setItemName(reportedItemDetails.getItemName());
+            reportedItem.setDescription(reportedItemDetails.getDescription());
+            reportedItem.setLostDate(reportedItemDetails.getLostDate());
+            reportedItem.setLostLocation(reportedItemDetails.getLostLocation());
+            reportedItem.setPhoneNumber(reportedItemDetails.getPhoneNumber());
+            reportedItem.setEmail(reportedItemDetails.getEmail());
+            reportedItem.setStatus(reportedItemDetails.getStatus());
+            ReportedItem updatedReportedItem = reportedItemService.saveReportedItem(reportedItem);
+            return ResponseEntity.ok(updatedReportedItem);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ReportedItem> deleteReportedItem(@PathVariable Long id){
-        reportedItemService.deleteReportedItem(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Void> deleteReportedItem(@PathVariable Long id) {
+        Optional<ReportedItem> optionalReportedItem = reportedItemService.getReportedItemById(id);
+        if (optionalReportedItem.isPresent()) {
+            reportedItemService.deleteReportedItem(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
