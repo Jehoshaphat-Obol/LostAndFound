@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
-
 @Entity
 @Component
 @Data
@@ -13,7 +11,7 @@ public class ReportedItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long itemId;
-    private String itemName;
+    private String name;
     private String description;
     private String lostDate;
     private String lostLocation;
@@ -29,12 +27,12 @@ public class ReportedItem {
         this.itemId = itemId;
     }
 
-    public String getItemName() {
-        return itemName;
+    public String getName() {
+        return name;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
