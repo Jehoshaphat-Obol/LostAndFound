@@ -28,7 +28,7 @@ public class ReportedItemController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/postdata")
     public ReportedItem createReportedItem(@RequestBody ReportedItem reportedItem) {
         return reportedItemService.saveReportedItem(reportedItem);
     }

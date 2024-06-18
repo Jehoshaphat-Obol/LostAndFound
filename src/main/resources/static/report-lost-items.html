@@ -111,12 +111,16 @@
                 delete data[""]
 
                 $.ajax({
-                    url: "http://localhost:8080/api/reported",
+                    url: "http://localhost:8080/api/reported/postdata",
                     contentType: 'application/json',
                     data: JSON.stringify(data),
                     type: "POST",
                     success: function(response){
                         console.log(response);
+                        $(this).children().each((index, field)=>{
+                          field.value = "";
+                        })
+
                     },
                     error: function(xhr, status, error){
                         console.log(error);
