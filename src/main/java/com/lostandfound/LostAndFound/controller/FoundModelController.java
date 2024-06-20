@@ -51,4 +51,15 @@ public class FoundModelController {
         foundModelService.deleteFoundModel(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    // Endpoint to update a found model
+    @PutMapping("/{id}")
+    public ResponseEntity<FoundModel> updateFoundModel(@PathVariable("id") Long id, @RequestBody FoundModel foundModelDetails) {
+        FoundModel updatedFoundModel = foundModelService.updateFoundModel(id, foundModelDetails);
+        if (updatedFoundModel != null) {
+            return new ResponseEntity<>(updatedFoundModel, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
