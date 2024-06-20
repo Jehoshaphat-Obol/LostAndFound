@@ -15,8 +15,9 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i"
-          rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i"
+        rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -38,209 +39,285 @@
 
 <body>
 
-<!-- ======= Header ======= -->
-<header id="header" class="header fixed-top d-flex align-items-center">
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
 
-    <div class="d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
-            <img src="assets/img/logo.png" alt="">
-            <span class="d-none d-lg-block">Lost And Found</span>
-        </a>
-        <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
-
-</header><!-- End Header -->
-
-<!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="index.html">
-                <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="index.html" class="logo d-flex align-items-center">
+                <img src="assets/img/logo.png" alt="">
+                <span class="d-none d-lg-block">Lost And Found</span>
             </a>
-        </li><!-- End Dashboard Nav -->
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="lost-items.html">
-                <i class="bi bi-inboxes-fill"></i>
-                <span>Lost Items</span>
-            </a>
-        </li><!-- End Profile Page Nav -->
+    </header><!-- End Header -->
 
-        <li class="nav-item">
-            <a class="nav-link" href="found-items.html">
-                <i class="bi bi-archive-fill"></i>
-                <span>Found Items</span>
-            </a>
-        </li><!-- End F.A.Q Page Nav -->
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="report-lost-items.html">
-                <i class="bi bi-envelope"></i>
-                <span>Report Lost Items</span>
-            </a>
-        </li><!-- End Contact Page Nav -->
+        <ul class="sidebar-nav" id="sidebar-nav">
 
-    </ul>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="index.html">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
 
-</aside><!-- End Sidebar-->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="lost-items.html">
+                    <i class="bi bi-inboxes-fill"></i>
+                    <span>Lost Items</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
 
-<main id="main" class="main">
+            <li class="nav-item">
+                <a class="nav-link" href="found-items.html">
+                    <i class="bi bi-archive-fill"></i>
+                    <span>Found Items</span>
+                </a>
+            </li><!-- End F.A.Q Page Nav -->
 
-    <div class="pagetitle">
-        <h1>Found Items</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Found Items</li>
-            </ol>
-        </nav>
-    </div><!-- End Page Title -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="report-lost-items.html">
+                    <i class="bi bi-envelope"></i>
+                    <span>Report Lost Items</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
 
-    <section class="section dashboard">
-        <div class="row">
+        </ul>
 
-            <div class="row">
+    </aside><!-- End Sidebar-->
 
-                <div class="col-lg-8">
-                    <div class="card recent-sales overflow-auto">
-
-                        <div class="card-body">
-                            <h5 class="card-title">Inventory</h5>
-                            <table class="table table-borderless" id="foundTable" style="width: 100%;">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Date Found</th>
-                                    <th scope="col">Last Seen</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-
-
-                        </div>
-
+    <main id="main" class="main">
+        <!-- Modal HTML -->
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalLabel">Update Item</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updateForm">
+                            <div class="form-group mb-3">
+                                <label for="itemName">Name</label>
+                                <input required type="text" class="form-control" id="itemName" name="name">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="itemDescription">Description</label>
+                                <input required type="text" class="form-control" id="itemDescription"
+                                    name="description">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="itemFoundDate">Found Date</label>
+                                <input required type="date" class="form-control" id="itemFoundDate" name="foundDate">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="itemFoundLocation">Found Location</label>
+                                <input required type="text" class="form-control" id="itemFoundLocation"
+                                    name="foundLocation">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="itemStatus">Status</label>
+                                <select required type="text" class="form-control" id="itemStatusFound" name="status">
+                                    <option value="1">Found</option>
+                                    <option value="2">Not Found</option>
+                                </select>
+                            </div>
+                            <input required type="hidden" id="itemId">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </form>
                     </div>
                 </div>
-
-                <div class="col-lg-4">
-                    <div class="card recent-sales overflow-auto">
-
-                        <div class="card-body">
-                            <h5 class="card-title">Add Item</h5>
-                            <form action="" method="POST" id="foundForm">
-                                <input type="text" class="form-control mb-3" placeholder="Item Name" name="name" required>
-                                <textarea type="text" class="form-control mb-3"
-                                          name="description" required>Describe the item here...</textarea>
-                                <input type="datetime-local" class="form-control mb-3" placeholder="name"
-                                       name="foundDate" required>
-                                <input type="text" class="form-control mb-3" placeholder="Location"
-                                       name="foundLocation" required>
-                                <button class="btn btn-primary">Add</button>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-
             </div>
         </div>
-    </section>
 
-</main><!-- End #main -->
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
+        <div class="pagetitle">
+            <h1>Found Items</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Found Items</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
-<!-- Vendor JS Files -->
-<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/chart.js/chart.umd.js"></script>
-<script src="assets/vendor/echarts/echarts.min.js"></script>
-<script src="assets/vendor/quill/quill.js"></script>
-<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-<script src="assets/vendor/jquery.dataTables/jquery.dataTables.js"></script>
-<script src="assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
+        <section class="section dashboard">
+            <div class="row">
 
-<!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
-<script>
-    $(document).ready(function () {
-        let foundTable = $('#foundTable').DataTable({
-            "ajax": {
-                "url": "http://localhost:8080/api/found",
-                "dataSrc": ""
-            },
-            "columns": [
-                { "data": "name" },
-                { "data": "description" },
-                { "data": "foundDate" },
-                { "data": "foundLocation" },
-                {
-                    "data": null,
-                    "defaultContent": '<i class="bi bi-pencil-square" style="color: lightblue; cursor: pointer;"></i> <i class="bi bi-trash" style="color: red; cursor: pointer;"></i>'
-                }
-            ]
-        });
+                <div class="row">
 
-        $('#foundForm').on('submit', function (e) {
-            e.preventDefault();
-            let allFieldsFilled = true;
-            const data = {};
+                    <div class="col-lg-8">
+                        <div class="card recent-sales overflow-auto">
 
-            $(this).find('input, textarea').each((index, field) => {
-                if (field.name && field.value.trim() === "") {
-                    allFieldsFilled = false;
-                }
-                data[field.name] = field.value;
-            });
+                            <div class="card-body">
+                                <h5 class="card-title">Inventory</h5>
+                                <table class="table table-borderless" id="foundTable" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Date Lost</th>
+                                            <th scope="col">Last Seen</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-            if (!allFieldsFilled) {
-                alert("All fields are required. Please fill in all fields.");
-                return;
-            }
+                                    </tbody>
+                                </table>
+                            </div>
 
-            $.ajax({
-                url: "http://localhost:8080/api/found",
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                type: "POST",
-                success: function (response) {
-                    console.log(response);
-                    alert("Successfully found item added!");
-                    foundTable.ajax.reload();
-                    $('#foundForm').find('input, textarea').each((index, field) => {
-                        field.value = "";
-                    });
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card recent-sales overflow-auto">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Add Item</h5>
+                                <form action="" method="POST" id="foundForm">
+                                    <input type="text" class="form-control mb-3" placeholder="Item Name" name="name"
+                                        required>
+                                    <textarea type="text" class="form-control mb-3" name="description"
+                                        required>Describe the item here...</textarea>
+                                    <input type="datetime-local" class="form-control mb-3" placeholder="name"
+                                        name="foundDate" required>
+                                    <input type="text" class="form-control mb-3" placeholder="Location"
+                                        name="foundLocation" required>
+                                    <button class="btn btn-primary">Add</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/jquery.dataTables/jquery.dataTables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            let foundTable = $('#foundTable').DataTable({
+                "ajax": {
+                    "url": "http://localhost:8080/api/found",
+                    "dataSrc": ""
                 },
-                error: function (xhr, status, error) {
-                    console.log(error);
-                }
+                "columns": [
+                    { "data": "name" },
+                    { "data": "description" },
+                    { "data": "foundDate" },
+                    { "data": "foundLocation" },
+                    {
+                        "data": "status",
+                        "render": function (data, type, row) {
+                            return data == 1 ? '<span class="rounded bg-success p-1" style="display: inline-block;" >Found</span>' : '<span class="rounded bg-danger p-1" style="display: inline-block;" >Not Found</span>';
+                        }
+                    },
+                    {
+                        "data": null,
+                        "defaultContent": '<i class="bi bi-eye btn btn-warning m-1 update-status"></i><i class="bi bi-pencil-square btn btn-info m-1 edit-item"></i> <i class="bi bi-trash btn btn-danger m-1 delete-item"></i>'
+                    }
+                ]
             });
-        });
 
-        $('#foundTable tbody').on('click', 'i.bi-pencil-square', function () {
-            var data = foundTable.row($(this).parents('tr')).data();
-            // Perform update action here
-            console.log('Update found item', data);
-        });
+            // Update status to 1
+            $('#foundTable tbody').on('click', 'i.update-status', function () {
+                let data = foundTable.row($(this).parents('tr')).data();
+                data.status = 1
+                $.ajax({
+                    url: `http://localhost:8080/api/found/${data.itemId}`,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (response) {
+                        foundTable.ajax.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error updating status:', error);
+                    }
+                });
+            });
 
-        $('#foundTable tbody').on('click', 'i.bi-trash', function () {
-            var data = foundTable.row($(this).parents('tr')).data();
-            // Perform delete action here
-            console.log('Delete found item', data);
+            // Open modal to edit item
+            $('#foundTable tbody').on('click', 'i.edit-item', function () {
+                let data = foundTable.row($(this).parents('tr')).data();
+                $('#itemId').val(data.itemId);
+                $('#itemName').val(data.name);
+                $('#itemDescription').val(data.description);
+                $('#itemFoundDate').val(data.foundDate);
+                $('#itemFoundLocation').val(data.foundLocation);
+                $('#itemStatusFound').val(data.status);
+                $('#updateModal').modal('show');
+            });
+
+            // Submit updated item information
+            $('#updateForm').on('submit', function (e) {
+                e.preventDefault();
+                let id = $('#itemId').val();
+                let updatedData = {
+                    name: $('#itemName').val(),
+                    description: $('#itemDescription').val(),
+                    foundDate: $('#itemFoundDate').val(),
+                    foundLocation: $('#itemFoundLocation').val(),
+                    status: Number($('itemStatusFound').val())
+                };
+
+                $.ajax({
+                    url: `http://localhost:8080/api/found/${id}`,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(updatedData),
+                    success: function (response) {
+                        $('#updateModal').modal('hide');
+                        foundTable.ajax.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error updating item:', error);
+                    }
+                });
+            });
+
+            // Delete item
+            $('#foundTable tbody').on('click', 'i.delete-item', function () {
+                let data = foundTable.row($(this).parents('tr')).data();
+                $.ajax({
+                    url: `http://localhost:8080/api/found/${data.itemId}`,
+                    type: 'DELETE',
+                    success: function (response) {
+                        foundTable.ajax.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error deleting item:', error);
+                    }
+                });
+            });
+
+
+
         });
-    });
-</script>
+    </script>
 
 </body>
 
