@@ -242,6 +242,32 @@
                 ]
             });
 
+            $('#foundForm').on('submit', function (e){
+                e.preventDefault();
+                data = {};
+                $(this).children().each((index, field)=>{
+                    data[field.name] = field.value;
+                })
+                data.status = Number(data.status);
+                delete data[""]
+
+                $.ajax({
+                    url: "http://localhost:8080/api/found",
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    type: "POST",
+                    success: function(response){
+                        console.log(response);
+                        foundTable.ajax.reload();
+                    },
+                    error: function(xhr, status, error){
+                        console.log(error);
+                    }
+                })
+            })
+
+
+
             // Update status to 1
             $('#foundTable tbody').on('click', 'i.update-status', function () {
                 let data = foundTable.row($(this).parents('tr')).data();
