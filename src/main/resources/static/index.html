@@ -244,7 +244,7 @@
       $('#foundTable tbody').on('click', 'i.update-status', function () {
         let data = foundTable.row($(this).parents('tr')).data();
         $.ajax({
-          url: `http://localhost:8080/api/found/${data.itemId}`,
+          url: `http://localhost:8080/api/found/${data.itemId}/`,
           type: 'PUT',
           contentType: 'application/json',
           data: JSON.stringify({ status: 1 }),
@@ -324,10 +324,44 @@
           { "data": "lostLocation" },
           {
             "data": null,
-            "defaultContent": '<i class="bi bi-pencil-square" style="color: lightblue; cursor: pointer;"></i> <i class="bi bi-trash" style="color: red; cursor: pointer;"></i>'
+            "defaultContent": '<i class="bi bi-eye btn btn-warning m-1 update-status"></i> <i class="bi bi-trash btn btn-danger m-1 delete-item"></i>'
           }
         ]
       });
+
+      
+      // Update status to 1
+      $('#lostTable tbody').on('click', 'i.update-status', function () {
+        let data = lostTable.row($(this).parents('tr')).data();
+        $.ajax({
+          url: `http://localhost:8080/api/reported/${data.itemId}`,
+          type: 'PUT',
+          contentType: 'application/json',
+          data: JSON.stringify({ status: 1 }),
+          success: function (response) {
+            lostTable.ajax.reload();
+          },
+          error: function (xhr, status, error) {
+            console.error('Error updating status:', error);
+          }
+        });
+      });
+
+      // Delete item
+      $('#lostTable tbody').on('click', 'i.delete-item', function () {
+        let data = lostTable.row($(this).parents('tr')).data();
+        $.ajax({
+          url: `http://localhost:8080/api/reported/${data.itemId}`,
+          type: 'DELETE',
+          success: function (response) {
+            lostTable.ajax.reload();
+          },
+          error: function (xhr, status, error) {
+            console.error('Error deleting item:', error);
+          }
+        });
+      });
+
 
       $('#foundTable tbody').on('click', 'i.bi-pencil-square', function () {
         var data = foundTable.row($(this).parents('tr')).data();
