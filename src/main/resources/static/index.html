@@ -152,6 +152,7 @@
                     <th scope="col">Description</th>
                     <th scope="col">Date Lost</th>
                     <th scope="col">Last Seen</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -234,6 +235,12 @@
           { "data": "foundDate" },
           { "data": "foundLocation" },
           {
+            "data": "status",
+            "render": function (data, type, row) {
+              return data == 1 ? '<span class="rounded bg-success p-1" style="display: inline-block;" >Found</span>' : '<span class="rounded bg-danger p-1" style="display: inline-block;" >Not Found</span>';
+            }
+          },
+          {
             "data": null,
             "defaultContent": '<i class="bi bi-eye btn btn-warning m-1 update-status"></i><i class="bi bi-pencil-square btn btn-info m-1 edit-item"></i> <i class="bi bi-trash btn btn-danger m-1 delete-item"></i>'
           }
@@ -243,11 +250,12 @@
       // Update status to 1
       $('#foundTable tbody').on('click', 'i.update-status', function () {
         let data = foundTable.row($(this).parents('tr')).data();
+        data.status = 1
         $.ajax({
-          url: `http://localhost:8080/api/found/${data.itemId}/`,
+          url: `http://localhost:8080/api/found/${data.itemId}`,
           type: 'PUT',
           contentType: 'application/json',
-          data: JSON.stringify({ status: 1 }),
+          data: JSON.stringify(data),
           success: function (response) {
             foundTable.ajax.reload();
           },
@@ -329,7 +337,7 @@
         ]
       });
 
-      
+
       // Update status to 1
       $('#lostTable tbody').on('click', 'i.update-status', function () {
         let data = lostTable.row($(this).parents('tr')).data();
