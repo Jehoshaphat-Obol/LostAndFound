@@ -94,29 +94,33 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="updateModalLabel">Update Item</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
           <div class="modal-body">
             <form id="updateForm">
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <label for="itemName">Name</label>
-                <input type="text" class="form-control" id="itemName" name="name">
+                <input required type="text" class="form-control" id="itemName" name="name">
               </div>
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <label for="itemDescription">Description</label>
-                <input type="text" class="form-control" id="itemDescription" name="description">
+                <input required type="text" class="form-control" id="itemDescription" name="description">
               </div>
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <label for="itemFoundDate">Found Date</label>
-                <input type="date" class="form-control" id="itemFoundDate" name="foundDate">
+                <input required type="date" class="form-control" id="itemFoundDate" name="foundDate">
               </div>
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <label for="itemFoundLocation">Found Location</label>
-                <input type="text" class="form-control" id="itemFoundLocation" name="foundLocation">
+                <input required type="text" class="form-control" id="itemFoundLocation" name="foundLocation">
               </div>
-              <input type="hidden" id="itemId">
+              <div class="form-group mb-3">
+                <label for="itemStatus">Status</label>
+                <select required type="text" class="form-control" id="itemStatusFound" name="status">
+                  <option value="1">Found</option>
+                  <option value="2">Not Found</option>
+                </select>
+              </div>
+              <input required type="hidden" id="itemId">
               <button type="submit" class="btn btn-primary">Save changes</button>
             </form>
           </div>
@@ -269,11 +273,12 @@
       // Open modal to edit item
       $('#foundTable tbody').on('click', 'i.edit-item', function () {
         let data = foundTable.row($(this).parents('tr')).data();
-        $('#itemId').val(data.id);
+        $('#itemId').val(data.itemId);
         $('#itemName').val(data.name);
         $('#itemDescription').val(data.description);
         $('#itemFoundDate').val(data.foundDate);
         $('#itemFoundLocation').val(data.foundLocation);
+        $('#itemStatusFound').val(data.status);
         $('#updateModal').modal('show');
       });
 
@@ -285,11 +290,12 @@
           name: $('#itemName').val(),
           description: $('#itemDescription').val(),
           foundDate: $('#itemFoundDate').val(),
-          foundLocation: $('#itemFoundLocation').val()
+          foundLocation: $('#itemFoundLocation').val(),
+          status: Number($('itemStatusFound').val())
         };
 
         $.ajax({
-          url: `http://localhost:8080/api/found/${id}/`,
+          url: `http://localhost:8080/api/found/${id}`,
           type: 'PUT',
           contentType: 'application/json',
           data: JSON.stringify(updatedData),
